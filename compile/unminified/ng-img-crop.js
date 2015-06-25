@@ -2,10 +2,10 @@
  * ngImgCrop v0.3.2
  * https://github.com/alexk111/ngImgCrop
  *
- * Copyright (c) 2014 Alex Kaul
+ * Copyright (c) 2015 Alex Kaul
  * License: MIT
  *
- * Generated at Wednesday, December 3rd, 2014, 3:54:12 PM
+ * Generated at Thursday, June 25th, 2015, 12:58:22 PM
  */
 (function() {
 'use strict';
@@ -1592,11 +1592,15 @@ crop.factory('cropHost', ['$document', 'cropAreaCircle', 'cropAreaSquare', 'crop
 
               image=new Image();
               image.src = canvas.toDataURL("image/png");
+              image.onload = function() {
+                resetCropHost();
+                events.trigger('image-updated');
+              }
             } else {
               image=newImage;
+              resetCropHost();
+              events.trigger('image-updated');
             }
-            resetCropHost();
-            events.trigger('image-updated');
           });
         };
         newImage.onerror=function() {
