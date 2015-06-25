@@ -10,6 +10,7 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function($timeo
       cropData: '=',
 
       changeOnFly: '=',
+      disableAutoUpdate: '=',
       areaType: '@',
       areaMinSize: '=',
       resultImageSize: '=',
@@ -93,6 +94,11 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function($timeo
         };
       };
 
+      // Update method
+      scope.$on("cropUpdateResultImage", function(){
+          updateResultImage(scope);
+      });
+
       // Setup CropHost Event Handlers
       events
         .on('load-start', fnSafeApply(function(scope){
@@ -113,7 +119,9 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function($timeo
           }
         }))
         .on('area-move-end area-resize-end image-updated', fnSafeApply(function(scope){
-          updateResultImage(scope);
+          if(!scope.disableAutoUpdate){
+            updateResultImage(scope);
+          }
         }));
 
       // Sync CropHost with Directive's options
