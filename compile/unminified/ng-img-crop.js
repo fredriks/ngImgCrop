@@ -5,7 +5,7 @@
  * Copyright (c) 2015 Alex Kaul
  * License: MIT
  *
- * Generated at Thursday, June 25th, 2015, 1:06:00 PM
+ * Generated at Thursday, June 25th, 2015, 1:36:09 PM
  */
 (function() {
 'use strict';
@@ -2021,7 +2021,8 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function($timeo
       onChange: '&',
       onLoadBegin: '&',
       onLoadDone: '&',
-      onLoadError: '&'
+      onLoadError: '&',
+      onImageUpdated: '&'
     },
     template: '<canvas></canvas>',
     controller: ['$scope', function($scope) {
@@ -2102,6 +2103,9 @@ crop.directive('imgCrop', ['$timeout', 'cropHost', 'cropPubSub', function($timeo
         }))
         .on('load-error', fnSafeApply(function(scope){
           scope.onLoadError({});
+        }))
+        .on('image-updated', fnSafeApply(function(scope){
+          scope.onImageUpdated({});
         }))
         .on('area-move area-resize', fnSafeApply(function(scope){
           if(!!scope.changeOnFly) {
