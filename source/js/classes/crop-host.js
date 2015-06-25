@@ -324,10 +324,9 @@ this.setNewImageSource = function (imageSource, toMax, cropData) {
 
                     } else {
                         image = newImage;
+                        resetCropHost(toMax, cropData);
+                        events.trigger('image-updated');
                     }
-
-                    resetCropHost(toMax, cropData);
-                    events.trigger('image-updated');
                 });
             };
             newImage.onerror = function () {
